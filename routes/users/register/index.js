@@ -15,7 +15,7 @@ module.exports = async function (fastify, opts) {
       if (err) return reply.send(err)
   
       client.query(
-        'INSERT INTO User (username, password) Values (\'' + username + '\',\'' + password + '\')',
+        'INSERT INTO User (username, password) Values (\'' + username + '\', SHA2(\'' + password + '\', 256))',
         function onResult (err) {
           client.release()
           reply.send(err || "회원가입 완료")
