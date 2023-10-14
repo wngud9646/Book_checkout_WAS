@@ -1,0 +1,121 @@
+-- User 테이블 생성
+CREATE TABLE User (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL
+);
+
+-- Book 테이블 생성
+CREATE TABLE Book (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  bookname VARCHAR(255) NOT NULL,
+  author VARCHAR(255) NOT NULL,
+  publisher VARCHAR(255) NOT NULL
+);
+
+-- checkout_history 테이블 생성
+CREATE TABLE checkout_history (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  User_id INT NOT NULL,
+  Book_id INT NOT NULL,
+  checked_out BOOLEAN NOT NULL,
+  FOREIGN KEY (User_id) REFERENCES User(id),
+  FOREIGN KEY (Book_id) REFERENCES Book(id)
+);
+
+
+-- "User" 테이블에 데이터 삽입
+INSERT INTO User (username, password)
+VALUES ('lee', SHA2('0000', 256)),
+       ('joo', SHA2('1111', 256)),
+       ('hyeong', SHA2('2222', 256));
+
+
+-- "Book" 테이블에 데이터 삽입
+INSERT INTO Book (bookname, author, publisher)
+VALUES ('책1', '저자1', '출판사1'),
+       ('책2', '저자2', '출판사2'),
+       ('책3', '저자3', '출판사3');
+
+-- "checkout_history" 테이블에 데이터 삽입
+INSERT INTO checkout_history (User_id, Book_id, checked_out)
+VALUES (1, 1, 1),
+       (2, 2, 0),
+       (3, 3, 1);
+
+
+SELECT User_id, Book_id, 
+       CASE 
+           WHEN checked_out = 1 THEN 'checked_out'
+           WHEN checked_out = 0 THEN 'In_storage'
+           ELSE 'Unknown'
+       END AS checkout_status
+FROM checkout_history
+where checked_out = 1;
+
+SELECT U.username, B.bookname, 
+       CASE 
+           WHEN CH.checked_out = 1 THEN 'checked_out'
+           WHEN CH.checked_out = 0 THEN 'Return'
+           ELSE 'Unknown'
+       END AS checkout_status
+FROM checkout_history CH
+JOIN User U ON CH.User_id = U.id
+JOIN Book B ON CH.Book_id = B.id
+where checked_out = 1;
+
+
+-- "Book" 테이블 조회 및 "checkout_history"의 "check_out" 값 가져오기
+SELECT B.bookname, B.author, B.publisher,
+       CASE
+           WHEN CH.checked_out = 0 THEN 'In_storage'
+           WHEN CH.checked_out = 1 THEN 'check_out'
+           ELSE 'Unknown'
+       END AS checkout_status
+FROM Book B
+LEFT JOIN checkout_history CH ON B.id = CH.Book_id;
+
+INSERT INTO checkout_history (User_id, Book_id, checked_out)
+VALUES (1, 2, 1);
+
+-- 책 테이블 확인 + 책이 대여할 수 있는 상태인지 확인
+SELECT B.bookname, B.author, B.publisher,
+       CASE
+           WHEN CH.checked_out = 1 THEN 'check_out'
+           ELSE 'In_storage'
+       END AS checkout_status
+FROM Book B
+LEFT JOIN (
+    SELECT Book_id, MAX(id) AS max_id
+    FROM checkout_history
+    GROUP BY Book_id
+) LatestCheckouts
+ON B.id = LatestCheckouts.Book_id
+LEFT JOIN checkout_history CH
+ON LatestCheckouts.max_id = CH.id;
+
+CREATE USER 'lee'@'localhost' IDENTIFIED BY '0000';
+
+GRANT ALL PRIVILEGES ON 'library'.* TO 'lee'@'localhost';
+
+
+SELECT CH.checked_out
+FROM checkout_history CH
+WHERE CH.book_id = 2
+ORDER BY CH.id DESC
+LIMIT 1;
+
+SELECT checked_out
+      FROM checkout_history
+      WHERE Book_id = 2
+      ORDER BY id DESC
+      LIMIT 1;
+
+      SELECT User_id
+      FROM checkout_history
+      WHERE Book_id = 2
+      ORDER BY id DESC
+      LIMIT 1;
+
+INSERT INTO User (username, password)
+VALUES ('lee', SHA2('0000', 256));
