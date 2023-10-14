@@ -8,9 +8,9 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
-  artifacts:
-    files:
-      - '**/*'
-    base-directory: .
-    name: was-artifact
-    discard-paths: no
+artifacts:
+  files:
+    - '**/*'
+  base-directory: .
+  name: was-artifact
+  discard-paths: no
