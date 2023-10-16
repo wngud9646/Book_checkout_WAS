@@ -1,5 +1,5 @@
 #!/bin/bash
-REPOSITORY=/home/ubuntu/build
+REPOSITORY=/home/ubuntu/build/library_was
 
 cd $REPOSITORY
 
