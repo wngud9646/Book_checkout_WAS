@@ -19,4 +19,8 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"codetest","imageUri":"%s"}]' 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest > imagedefinitions.json
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - '**/*'
+  base-directory: .
+  name: was-artifact
+  discard-paths: no
