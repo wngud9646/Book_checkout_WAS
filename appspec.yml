@@ -10,9 +10,3 @@ permissions:
     pattern: '**'
     owner: ubuntu
     group: ubuntu
-
-hooks:
-  ApplicationStart:
-    - location: scripts/start.sh
-      timeout: 300
-      runas: ubuntu
