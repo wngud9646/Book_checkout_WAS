@@ -10,3 +10,13 @@ permissions:
     pattern: '**'
     owner: ubuntu
     group: ubuntu
+
+hooks:
+  PreApplicationStart:
+    - location: scripts/stop_was.sh
+      timeout: 300
+      runas: ubuntu 
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 300
+      runas: ubuntu

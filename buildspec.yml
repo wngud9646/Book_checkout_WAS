@@ -1,23 +1,14 @@
 version: 0.2
-
 phases:
-  pre_build:
-    commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre-build:
+      - cd library_was
   build:
     commands:
-      - echo Building the Docker image...
-      - cd library_was
-      - docker build -t codetest .
-      - echo Tagging the Docker image...
-      - docker tag codetest:latest 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest
-  post_build:
-    commands:
-      - echo Pushing the Docker image to Amazon ECR...
-      - docker push 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest
-      - echo Writing image definitions file...
-      - printf '[{"name":"codetest","imageUri":"%s"}]' 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest > imagedefinitions.json
+      - echo Installing source NPM dependencies...
+      - npm install
 artifacts:
   files:
     - '**/*'

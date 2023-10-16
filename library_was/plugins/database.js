@@ -1,21 +1,25 @@
-'use strict'
+'use strict';
 
-const fp = require('fastify-plugin')
+const fp = require('fastify-plugin');
+const { getSecrets } = require('./secret');
 
-const {
-    DATABASE_USERS,
-    DATABASE_PASSWORD,
-    DATABASE_HOSTS,
-    DATABASE_NAMES
-} = process.env
+const secretName = 'codetest';
+
 /*
 fastify.register(require('@fastify/mysql'), {
   connectionString: 'mysql://lee:0000@localhost/library'
 })
 */
 module.exports = fp(async function (fastify, opts) {
+    const secrets = await getSecrets(secretName);
+
+    const user = secrets.DATABASE_USERS;
+    const password = secrets.DATABASE_PASSWORD;
+    const host = secrets.DATABASE_HOSTS;
+    const database = secrets.DATABASE_NAMES;
+
     fastify.register(require('@fastify/mysql'), {
-        connectionString: `mysql://${DATABASE_USERS}:${DATABASE_PASSWORD}@${DATABASE_HOSTS}/${DATABASE_NAMES}`
-      })
-})
+        connectionString: `mysql://${user}:${password}@${host}/${database}`
+    });
+});
 
