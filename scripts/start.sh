@@ -3,4 +3,4 @@ REPOSITORY=/home/ubuntu/build
 
 cd $REPOSITORY
 
-sudo npm start
+npm start
