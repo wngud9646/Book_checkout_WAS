@@ -59,7 +59,9 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Run npm test
-      run: npm test
+      run: |
+        npm install
+        npm test
       # If npm test fails, it will return a non-zero exit code (typically 1)
 
     - name: Check npm test result
