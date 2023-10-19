@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 
-module.exports = async function (fastify, opts) {
-  fastify.get('/', (req, reply) => {
-    fastify.mysql.getConnection(onConnect)
-    const getAllBookQuery = `
+module.exports = async function (fastify) {
+    fastify.get('/', (req, reply) => {
+        fastify.mysql.getConnection(onConnect);
+        const getAllBookQuery = `
       SELECT B.id, B.bookname, B.author, B.publisher,
          CASE
              WHEN CH.checked_out = 1 THEN 'Checked_out'
@@ -17,19 +17,19 @@ module.exports = async function (fastify, opts) {
       ) LatestCheckouts
       ON B.id = LatestCheckouts.Book_id
       LEFT JOIN checkout_history CH
-      ON LatestCheckouts.max_id = CH.id;`
+      ON LatestCheckouts.max_id = CH.id;`;
 
-    function onConnect (err, client) {
-      if (err) return reply.send(err)
+        function onConnect (err, client) {
+            if (err) return reply.send(err);
       
-      client.query(
-        getAllBookQuery,
-        function onResult (err, result) {
-          client.release()
-          if (err) reply.send(err); // 에러가 발생하면 에러 응답을 반환
-          else reply.send(result)
+            client.query(
+                getAllBookQuery,
+                function onResult (err, result) {
+                    client.release();
+                    if (err) reply.send(err); // 에러가 발생하면 에러 응답을 반환
+                    else reply.send(result);
+                }
+            );
         }
-      )
-    }
-  })
-}
+    });
+};
