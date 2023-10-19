@@ -1,0 +1,172 @@
+[Container] 2023/10/19 10:48:40 Waiting for agent ping
+[Container] 2023/10/19 10:48:41 Waiting for DOWNLOAD_SOURCE
+[Container] 2023/10/19 10:48:42 Phase is DOWNLOAD_SOURCE
+[Container] 2023/10/19 10:48:42 CODEBUILD_SRC_DIR=/codebuild/output/src55261159/src
+[Container] 2023/10/19 10:48:42 YAML location is /codebuild/output/src55261159/src/buildspec.yml
+[Container] 2023/10/19 10:48:42 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2023/10/19 10:48:42 Processing environment variables
+[Container] 2023/10/19 10:48:42 No runtime version selected in buildspec.
+[Container] 2023/10/19 10:48:42 Moving to directory /codebuild/output/src55261159/src
+[Container] 2023/10/19 10:48:42 Unable to initialize cache download: no paths specified to be cached
+[Container] 2023/10/19 10:48:43 Configuring ssm agent with target id: codebuild:089d31cf-40ab-4a7d-844d-f04d908aa1e8
+[Container] 2023/10/19 10:48:43 Successfully updated ssm agent configuration
+[Container] 2023/10/19 10:48:43 Registering with agent
+[Container] 2023/10/19 10:48:43 Phases found in YAML: 3
+[Container] 2023/10/19 10:48:43  PRE_BUILD: 2 commands
+[Container] 2023/10/19 10:48:43  BUILD: 5 commands
+[Container] 2023/10/19 10:48:43  POST_BUILD: 4 commands
+[Container] 2023/10/19 10:48:43 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2023/10/19 10:48:43 Phase context status code:  Message: 
+[Container] 2023/10/19 10:48:43 Entering phase INSTALL
+[Container] 2023/10/19 10:48:43 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2023/10/19 10:48:43 Phase context status code:  Message: 
+[Container] 2023/10/19 10:48:43 Entering phase PRE_BUILD
+[Container] 2023/10/19 10:48:43 Running command echo Logging in to Amazon ECR...
+Logging in to Amazon ECR...
+
+[Container] 2023/10/19 10:48:43 Running command aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+[Container] 2023/10/19 10:48:57 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2023/10/19 10:48:57 Phase context status code:  Message: 
+[Container] 2023/10/19 10:48:57 Entering phase BUILD
+[Container] 2023/10/19 10:48:57 Running command echo Building the Docker image...
+Building the Docker image...
+
+[Container] 2023/10/19 10:48:57 Running command cd library_was
+
+[Container] 2023/10/19 10:48:57 Running command docker build -t codetest .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 155B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:18-alpine
+#3 DONE 2.2s
+
+#4 [internal] load build context
+#4 transferring context: 379.38kB done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/node:18-alpine@sha256:435dcad253bb5b7f347ebc69c8cc52de7c912eb7241098b920f2fc2d7843183d
+#5 resolve docker.io/library/node:18-alpine@sha256:435dcad253bb5b7f347ebc69c8cc52de7c912eb7241098b920f2fc2d7843183d 0.0s done
+#5 sha256:435dcad253bb5b7f347ebc69c8cc52de7c912eb7241098b920f2fc2d7843183d 1.43kB / 1.43kB done
+#5 sha256:51490771aba658439d29b1b03b60fc31e67bf0da3e01cb5903716310df4be1c1 1.16kB / 1.16kB done
+#5 sha256:d1517ab6615b781f3b81f339100063d1b2b41f1a32a9efb8563ecd1375311c22 6.78kB / 6.78kB done
+#5 sha256:96526aa774ef0126ad0fe9e9a95764c5fc37f409ab9e97021e7b4775d82bf6fa 0B / 3.40MB 0.1s
+#5 sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283 0B / 47.88MB 0.1s
+#5 sha256:b06de8ab1c4feccaf7b687bb7ebd5180c2bd1f59d91749619d52af77fd38ea13 0B / 2.34MB 0.1s
+#5 sha256:96526aa774ef0126ad0fe9e9a95764c5fc37f409ab9e97021e7b4775d82bf6fa 3.40MB / 3.40MB 0.3s
+#5 extracting sha256:96526aa774ef0126ad0fe9e9a95764c5fc37f409ab9e97021e7b4775d82bf6fa
+#5 sha256:96526aa774ef0126ad0fe9e9a95764c5fc37f409ab9e97021e7b4775d82bf6fa 3.40MB / 3.40MB 0.3s done
+#5 sha256:90ef3ffc51561ffa7dfafd2dc93f44601f8d4d4273ad8d54dbf34326c746a142 0B / 448B 0.4s
+#5 sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283 28.31MB / 47.88MB 0.6s
+#5 extracting sha256:96526aa774ef0126ad0fe9e9a95764c5fc37f409ab9e97021e7b4775d82bf6fa 0.2s done
+#5 sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283 47.88MB / 47.88MB 0.7s
+#5 sha256:b06de8ab1c4feccaf7b687bb7ebd5180c2bd1f59d91749619d52af77fd38ea13 2.34MB / 2.34MB 0.7s
+#5 sha256:90ef3ffc51561ffa7dfafd2dc93f44601f8d4d4273ad8d54dbf34326c746a142 448B / 448B 0.7s done
+#5 sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283 47.88MB / 47.88MB 0.8s done
+#5 sha256:b06de8ab1c4feccaf7b687bb7ebd5180c2bd1f59d91749619d52af77fd38ea13 2.34MB / 2.34MB 0.8s done
+#5 extracting sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283
+#5 extracting sha256:3130715204cf4a9be94608d180505f50862416589a8f03eba7b664f15b9c0283 2.1s done
+#5 extracting sha256:b06de8ab1c4feccaf7b687bb7ebd5180c2bd1f59d91749619d52af77fd38ea13 0.1s
+#5 extracting sha256:b06de8ab1c4feccaf7b687bb7ebd5180c2bd1f59d91749619d52af77fd38ea13 0.1s done
+#5 extracting sha256:90ef3ffc51561ffa7dfafd2dc93f44601f8d4d4273ad8d54dbf34326c746a142 done
+#5 DONE 3.5s
+
+#6 [2/5] WORKDIR /app
+#6 DONE 2.7s
+
+#7 [3/5] COPY package*.json ./
+#7 DONE 0.1s
+
+#8 [4/5] RUN npm install
+#8 6.043 npm WARN deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+#8 10.53 
+#8 10.53 added 688 packages, and audited 853 packages in 10s
+#8 10.53 
+#8 10.53 92 packages are looking for funding
+#8 10.53   run `npm fund` for details
+#8 10.54 
+#8 10.54 1 critical severity vulnerability
+#8 10.54 
+#8 10.54 To address all issues, run:
+#8 10.54   npm audit fix
+#8 10.54 
+#8 10.54 Run `npm audit` for details.
+#8 10.54 npm notice 
+#8 10.54 npm notice New major version of npm available! 9.8.1 -> 10.2.1
+#8 10.54 npm notice Changelog: <https://github.com/npm/cli/releases/tag/v10.2.1>
+#8 10.54 npm notice Run `npm install -g npm@10.2.1` to update!
+#8 10.54 npm notice 
+#8 DONE 15.6s
+
+#9 [5/5] COPY . .
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 2.0s done
+#10 writing image sha256:0aab4b5219d6d1704bc582f6be54176406d6f99e7376c6292afcf8dcab012ae1 done
+#10 naming to docker.io/library/codetest done
+#10 DONE 2.0s
+
+[Container] 2023/10/19 10:49:23 Running command echo Tagging the Docker image...
+Tagging the Docker image...
+
+[Container] 2023/10/19 10:49:23 Running command docker tag codetest:latest 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest
+
+[Container] 2023/10/19 10:49:23 Phase complete: BUILD State: SUCCEEDED
+[Container] 2023/10/19 10:49:23 Phase context status code:  Message: 
+[Container] 2023/10/19 10:49:23 Entering phase POST_BUILD
+[Container] 2023/10/19 10:49:23 Running command echo Pushing the Docker image to Amazon ECR...
+Pushing the Docker image to Amazon ECR...
+
+[Container] 2023/10/19 10:49:23 Running command docker push 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest
+The push refers to repository [257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest]
+b440965d1145: Preparing
+7f89fbef2331: Preparing
+0e23bacd98a6: Preparing
+d3ec58d30707: Preparing
+b76efd4eddd5: Preparing
+fa5569ec60d1: Preparing
+b105890ed2f2: Preparing
+cc2447e1835a: Preparing
+fa5569ec60d1: Waiting
+b105890ed2f2: Waiting
+cc2447e1835a: Waiting
+b76efd4eddd5: Layer already exists
+fa5569ec60d1: Layer already exists
+b105890ed2f2: Layer already exists
+cc2447e1835a: Layer already exists
+d3ec58d30707: Pushed
+0e23bacd98a6: Pushed
+b440965d1145: Pushed
+7f89fbef2331: Pushed
+latest: digest: sha256:142ae1eb22e745317ef00e5bc0764af849b249b27a105b34829ceba02a8ac515 size: 1995
+
+[Container] 2023/10/19 10:49:32 Running command echo Writing image definitions file...
+Writing image definitions file...
+
+[Container] 2023/10/19 10:49:32 Running command printf '[{"name":"codetest","imageUri":"%s"}]' 257840391579.dkr.ecr.ap-northeast-2.amazonaws.com/codetest:latest > imagedefinitions.json
+
+[Container] 2023/10/19 10:49:32 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2023/10/19 10:49:32 Phase context status code:  Message: 
+[Container] 2023/10/19 10:49:32 Expanding base directory path: .
+[Container] 2023/10/19 10:49:32 Assembling file list
+[Container] 2023/10/19 10:49:32 Expanding .
+[Container] 2023/10/19 10:49:32 Expanding file paths for base directory .
+[Container] 2023/10/19 10:49:32 Assembling file list
+[Container] 2023/10/19 10:49:32 Expanding **/*
+[Container] 2023/10/19 10:49:32 Found 28 file(s)
+[Container] 2023/10/19 10:49:32 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2023/10/19 10:49:32 Phase context status code:  Message: 
